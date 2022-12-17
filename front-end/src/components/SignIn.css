@@ -1,0 +1,119 @@
+body{
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    color: rgb(75, 9, 182);
+    margin: 0px;
+    /* background: url(leftframe.jpg) no-repeat; */
+}
+.sign-in-button button {
+    position:absolute;
+    top: 20px;
+    left:540px;
+    margin:70px;
+    width:170px;
+    background-color: #FF1684; 
+    border: 1px solid #FF1684; 
+    color: #FFFFFF; 
+    padding: 10px 24px; /* Some padding */
+    cursor: pointer; /* Pointer/hand icon */
+    
+
+}
+.sign-up-button button {
+    position:absolute;
+    top: 20px;
+    left:830px;
+    width:170px;
+    margin:70px;
+    background-color: #FFFFFF; 
+    border: 1px solid #FF1684; 
+    color: #FF1684; 
+    padding: 10px 24px; /* Some padding */
+    cursor: pointer; /* Pointer/hand icon */
+    
+}  
+  /* Add a background color on hover */
+.sign-up-button button:hover {
+    background-color: #FF1684;
+    color:#FFFFFF;
+}
+.signupFrm {
+    padding-top:0px;
+    left:600px;
+    top:-450px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.form {
+    background-color: white;
+    width: 400px;
+    border-radius: 8px;
+    padding: 20px 40px;
+    box-shadow: 0 10px 25px rgba(92, 99, 105, .2);
+}
+.submitBtn {
+    display: block;
+    margin: 0px 9px;
+    padding: 4px 14px;
+    border: 2px solid rgb(102, 9, 207);
+    background-color:rgb(109, 12, 201);
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'Popins', Courier;
+    width: 100%
+}
+
+.submitBtn:hover {
+    background-color: rgb(250, 245, 245);
+    color: rgb(8, 8, 8);
+}
+.inputContainer {
+    position: relative;
+    height: 45px;
+    width: 90%;
+    margin-bottom: 17px;
+}
+.input {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    border: 1px solid #DADCE0;
+    border-radius: 7px;
+    font-size: 16px;
+    padding: 0 20px;
+    outline: none;
+    background: none;
+    z-index: 1;
+}
+
+/* Hide the placeholder texts (a) */
+
+::placeholder {
+    color: transparent;
+}
+.label {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    padding: 0 4px;
+    background-color: white;
+    color: #DADCE0;
+    font-size: 16px;
+    transition: 0.5s;
+    z-index: 0;
+}
+.sign-in-text{
+    width: 156px;
+    height: 27px;
+    
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 27px;
+}

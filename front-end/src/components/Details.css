@@ -1,0 +1,153 @@
+.cb-logo {
+    height: 11%;
+    width: 11%;
+    margin: 2%;
+    margin-left: 6%;
+}
+
+.details-heading {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 36px;
+    line-height: 54px;
+    color: #2D0660;
+    margin: 0;
+    margin-left: 17%;
+}
+
+.fill-in-heading {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 36px;
+    color: #4C0AA3;
+    margin: 0;
+    margin-left: 17%;
+}
+
+table {
+    margin-left: 17%;
+    margin-top: 3.5%;
+    /* width: 64%; */
+    width: 68%;
+}
+
+.input-and-label-cell {
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+
+}
+
+.input-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* padding: 15px 25px; */
+    /* gap: 550px; */
+
+    /* width: 810px; */
+    /* height: 60px; */
+
+    /* background: #F0EFEF; */
+    border-radius: 8px;
+    border-style: none;
+    /* margin-left: -250px; */
+
+
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 27px;
+    /* identical to box height */
+
+
+    color: #5F5E5E;
+
+    background: #F0EFEF;
+    /* background-position-x: 95%; */
+    padding-left: 5%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    margin-top: 2.5%;
+}
+
+.input-box::placeholder {
+
+    /* width: 178px;
+    height: 30px; */
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 27px;
+    /* identical to box height */
+
+
+    color: #5F5E5E;
+    /* padding-left: 5%; */
+    /* margin-left: 10%; */
+
+}
+
+.input-label {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 27px;
+    /* identical to box height */
+
+
+    color: #4C0AA3;
+}
+
+.details-submit-button {
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 27px;
+    /* identical to box height */
+
+
+    color: #FFFFFF;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+
+    background: linear-gradient(97.13deg, #8835F6 7.81%, #4C0AA3 100%);
+    box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    border: none;
+    width: 50%;
+    margin-left: 25%;
+    margin-top: 2%;
+    /* margin-bottom: 2%; */
+    padding-top: 1%;
+    padding-bottom: 1%;
+    cursor: pointer;
+}
+
+.details-footer {
+    /* margin-top: 5%; */
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    /* background-image: url("../ASSETS/details-page-footer.svg"); */
+    /* background-repeat: repeat-x; */
+    /* height: auto; */
+    /* color: white;
+  text-align: center; */
+}
+
