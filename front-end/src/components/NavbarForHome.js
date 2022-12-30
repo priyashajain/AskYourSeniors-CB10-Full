@@ -5,16 +5,16 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
 
-function Navbar(props) {
+function NavbarForHome(props) {
   // const auth = localStorage.getItem("user");
   const navigate = useNavigate();
 
   const logout = () => {
     localStorage.clear();
-    navigate("/signin");       //video13 to clear bug, as useNavigate re-renders
+    navigate("/signup");       //video13 to clear bug, as useNavigate re-renders
   }
   return (
-    <div className="nav-container">
+    <div className="nav-container-for-home">
       <div className="cb-logo-container">
         <img src="../ASSETS/Frame 21.svg" className="cb-logo-container-img" alt="" />
       </div>
@@ -42,8 +42,8 @@ function Navbar(props) {
             <img src="../ASSETS/10.svg" alt="" />
           </div> */}
 
-      <div className="profile-container">
-        <div className="student-name-and-arrow-container">
+      <div className="profile-container-for-home">
+        {/* <div className="student-name-and-arrow-container">
           <p style={{ "marginTop": "9.5%", "display": "flex" }}>{props.navbarName}</p>
           <Dropdown as={ButtonGroup}>
             <Dropdown.Toggle id="dropdown-custom-1" style={{ "backgroundColor": "white", "padding": "0", "width": "22px", "border": "none" }}>
@@ -57,7 +57,10 @@ function Navbar(props) {
 
 
         </div>
-        <img src="../ASSETS/10.svg" alt="" />
+        <img src="../ASSETS/10.svg" alt="" /> */}
+        <Link to="/signup" className="signin-signup-button">Sign Up</Link>
+        <Link to="/signin" className="signin-signup-button">Sign In</Link>
+        {/* <button className="signin-signup-button">Sign In</button> */}
       </div>
 
 
@@ -65,4 +68,4 @@ function Navbar(props) {
   );
 }
 
-export default Navbar;
+export default NavbarForHome;

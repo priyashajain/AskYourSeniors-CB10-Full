@@ -32,8 +32,24 @@ const SignIn = () => {
         console.log(result);
 
         if (result.email) {
-            localStorage.setItem("user", JSON.stringify(result));
-            navigate("/ask-your-doubts");
+            let userSavedInLocalStorage = {
+                _id: result._id,
+                email: result.email,
+                isAdmin: result.isAdmin             //added for admin routing
+            };
+            // localStorage.setItem("user", JSON.stringify(result));
+            localStorage.setItem("user", JSON.stringify(userSavedInLocalStorage));
+            // let resultUser = {_id: JSON.parse(result)._id, email: JSON.parse(result).email};
+            // localStorage.setItem("user", JSON.stringify(resultUser));
+            if(result.isAdmin === true){
+                navigate("/admin");
+            }
+            else {
+                navigate("/ask-your-doubts");
+            }
+                
+            
+            // navigate("/ask-your-doubts");
         }
         else {
             alert("Please enter correct details!");

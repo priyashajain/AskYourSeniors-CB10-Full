@@ -10,6 +10,8 @@ const Details = () => {
     const [lName, setlName] = useState("");
     const [branch, setBranch] = useState("");
     const [year, setYear] = useState("");
+    const noOfDoubtsAsked = 0;
+    const noOfDoubtsAnswered = 0;
     const params = useParams();
     const navigate = useNavigate();
 
@@ -19,7 +21,7 @@ const Details = () => {
 
         let result = await fetch(`http://localhost:5000/user/${params.id}`, {                 //this result gets the value of res.send()
             method: 'Put',
-            body: JSON.stringify({ fName, lName, branch, year }),
+            body: JSON.stringify({ fName, lName, branch, year, noOfDoubtsAsked, noOfDoubtsAnswered }),
             headers: {
                 'Content-Type': 'application/json'
             }

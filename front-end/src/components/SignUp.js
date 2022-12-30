@@ -43,6 +43,16 @@ const SignUp = () => {
             // navigate("/details");
             console.log(result._id);
         }
+
+        
+        // if(result){                       //if we got a proper result, redirect (using navigate from useNavigate in react-roter-dom) to home page after submit is pressed
+        //     localStorage.setItem("user",JSON.stringify(result));  //to save the sign up info in local storage, check in Inspect->Application->Local Storage, even after closing tab and reopening, data stays
+        //     // const auth = localStorage.getItem('user');
+        //     navigate(`/details/${result._id}`);
+        //     // navigate("/details");
+        //     console.log(result._id);
+        // }
+       
     }
 
     return (

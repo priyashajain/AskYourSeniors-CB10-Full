@@ -254,6 +254,7 @@ import Search from "./components/Search";
 import Chatbot from "./components/Chatbot";
 import LeftBorder from "./components/LeftBorder";
 import QuestionForUpdDel from "./components/QuestionForUpdDel";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const AskYourDoubts = () => {
@@ -263,11 +264,13 @@ const AskYourDoubts = () => {
   });
 
   useEffect(() => {
-    // getUserById();
+    getUserById();
     addQuestion();
     getQuestionsByUserId();
     getAnswersByUserId();
   });
+
+  const [navbarName, setNavbarName] = useState("");
 
   const [questions, setQuestions] = useState([]);
 
@@ -290,7 +293,7 @@ const AskYourDoubts = () => {
     let result = await fetch(`http://localhost:5000/questions`);
     result = await result.json();
     // console.log(result);
-    setnQuestions(result);
+    setnQuestions(result.filter(adminQuestion => adminQuestion.approved === true));
   }
 
   const getQuestionsByUserId = async () => {
@@ -300,7 +303,7 @@ const AskYourDoubts = () => {
     resultMyQuestions = await resultMyQuestions.json();
     // console.log(result);
 
-    setMyQuestions(resultMyQuestions);  //
+    setMyQuestions(resultMyQuestions.filter(adminQuestion => adminQuestion.approved === true));  //
   }
 
   const getAnswersByUserId = async () => {
@@ -310,17 +313,18 @@ const AskYourDoubts = () => {
     resultMyAnswers = await resultMyAnswers.json();
     // console.log(result);
 
-    setMyAnswers(resultMyAnswers);  //
+    setMyAnswers(resultMyAnswers.filter(adminQuestion => adminQuestion.approved === true));  //
   }
 
-  // const getUserById = async (id) => {
-  //   // const auth = localStorage.getItem("user");
-  //   // let result = await fetch(`http://localhost:5000/user/${auth._id}`);
-  //   let result = await fetch(`http://localhost:5000/user/${id}`);
-  //   result = await result.json();
-
-  //   setUser(result);
-  // }
+  const getUserById = async () => {
+    const auth = localStorage.getItem("user");
+    const idFetched = JSON.parse(auth)._id;
+  
+    let result = await fetch(`http://localhost:5000/user/${idFetched}`);
+    result = await result.json();
+    setNavbarName(`${result.fName} ${result.lName}`);
+    // setUser(result);
+  }
 
   const handleAllQuestionsButton = () => {
     setAllQuestionsButton(true);
@@ -369,7 +373,7 @@ const AskYourDoubts = () => {
 
       <div className="right-area">
 
-        <Navbar />
+        <Navbar navbarName={navbarName}/>
 
         <Search />
 
@@ -426,14 +430,14 @@ const AskYourDoubts = () => {
             );
           })}
 
-            <Question
+            {/* <Question
               fName="Student"
               lName="Name"
               branch="ECE"
               year="2024"
               category="Programming"
               content="Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tristique orci. Nam neque leo, rutrum et nulla quis, ullamcorper varius nisl. Aliquam elementum tortor a nibh maximus, id porta est accumsan.elit"
-            />
+            /> */}
             {/* <Question
             fName="Student"
             lName="Name"
@@ -477,14 +481,14 @@ const AskYourDoubts = () => {
             );
           })}
 
-            <Question
+            {/* <Question
               fName="Student"
               lName="Name"
               branch="ECE"
               year="2024"
               category="Programming"
               content="Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tristique orci. Nam neque leo, rutrum et nulla quis, ullamcorper varius nisl. Aliquam elementum tortor a nibh maximus, id porta est accumsan.elit"
-            />
+            /> */}
             {/* <Question
             fName="Student"
             lName="Name"
@@ -558,14 +562,14 @@ const AskYourDoubts = () => {
             );
           })}
 
-            <Question
+            {/* <Question
               fName="Student"
               lName="Name"
               branch="ECE"
               year="2024"
               category="Programming"
               content="Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tristique orci. Nam neque leo, rutrum et nulla quis, ullamcorper varius nisl. Aliquam elementum tortor a nibh maximus, id porta est accumsan.elit"
-            />
+            /> */}
             {/* <Question
             fName="Student"
             lName="Name"
@@ -599,18 +603,17 @@ const AskYourDoubts = () => {
           <br />
           <br />
 
-          {nquestions.map((nquestionItem, index) => {
+          {/* {nquestions.map((nquestionItem, index) => {
             return (
               <Question
                 key={index}
                 id={index}
-                questionId={nquestionItem._id}                //added
+                questionId={nquestionItem._id}                
                 fName={nquestionItem.user.fName}
                 lName={nquestionItem.user.lName}
                 branch={nquestionItem.user.branch}
                 year={nquestionItem.user.year}
-                // category={questionItem.category}
-                // content={questionItem.content}
+                
                 content={nquestionItem.content}
                 category={nquestionItem.category}
               />
@@ -624,29 +627,8 @@ const AskYourDoubts = () => {
             year="2024"
             category="Programming"
             content="Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tristique orci. Nam neque leo, rutrum et nulla quis, ullamcorper varius nisl. Aliquam elementum tortor a nibh maximus, id porta est accumsan.elit"
-          />
-          {/* <Question
-            fName="Student"
-            lName="Name"
-            branch="ECE"
-            year="2024"
-            category="Programming"
-            content="Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tristique orci. Nam neque leo, rutrum et nulla quis, ullamcorper varius nisl. Aliquam elementum tortor a nibh maximus, id porta est accumsan.elit"
-          />
-          <Question fName="Student"
-            lName="Name"
-            branch="ECE"
-            year="2024"
-            category="Programming"
-            content="Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tristique orci. Nam neque leo, rutrum et nulla quis, ullamcorper varius nisl. Aliquam elementum tortor a nibh maximus, id porta est accumsan.elit" />
-          <Question
-            fName="Student"
-            lName="Name"
-            branch="ECE"
-            year="2024"
-            category="Programming"
-            content="Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tristique orci. Nam neque leo, rutrum et nulla quis, ullamcorper varius nisl. Aliquam elementum tortor a nibh maximus, id porta est accumsan.elit"
           /> */}
+          
 
         </div>
 

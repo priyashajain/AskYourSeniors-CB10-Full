@@ -23,6 +23,7 @@ function Question(props) {
 
   const [acategory, setACategory] = useState("");
   const [acontent, setAContent] = useState("");
+  const [approved, setApproved] = useState(false);
   // const [user, setUser] = useState({
   //   _id: "", email: "", password: "", fName: "", lName: "", branch: "", year: ""
   // });
@@ -79,7 +80,7 @@ function Question(props) {
     result = await result.json();
     // console.log(result);
     // setUser(result);
-    setAnswers(result);
+    setAnswers(result.filter(adminQuestion => adminQuestion.approved === true));
     // console.log(result);
 
     // set_id(result._id);
@@ -106,7 +107,7 @@ function Question(props) {
     setQuestionCategory(resQuestion.category);
     setQuestionUserId(resQuestion.user._id);
     setQuestionUserEmail(resQuestion.user.email);
-    setQuestionUserPassword(resQuestion.user.password);
+    // setQuestionUserPassword(resQuestion.user.password);
     setQuestionUserfName(resQuestion.user.fName);
     setQuestionUserlName(resQuestion.user.lName);
     setQuestionUserBranch(resQuestion.user.branch);
@@ -126,19 +127,68 @@ function Question(props) {
 
     setUserId(resUser._id);
     setUserEmail(resUser.email);
-    setUserPassword(resUser.password);
+    // setUserPassword(resUser.password);
     setUserfName(resUser.fName);
     setUserlName(resUser.lName);
     setUserBranch(resUser.branch);
     setUserYear(resUser.year);
+
+    setApproved(false);
   }
 
   function handleAnswersButtonClick(event) {
+    // getUserById();                           //working here as this function not async
+    // getQuestionById();
+    // applyConditionToAnswer(event);
+    // if(Number(userYear)<= Number(questionUserYear)){
+    //   setIsAnsweringActive(!isAnsweringActive);
+    //   event.preventDefault();
+    // }
+    // else{
+    //   alert("You cannot answer this question!");
+    // }
+
     setIsAnsweringActive(!isAnsweringActive);
     // alert("Answer button clicked");
     getUserById();                           //working here as this function not async
     getQuestionById();
     event.preventDefault();
+
+
+
+
+    // const arr = [
+    //   getUserById,
+    //   getQuestionById
+    // ];
+    // const lastFunction = () => {
+    //   // alert('this function should be fired at the very last');
+    //   if (true) {
+    //     alert(parseInt(userYear));
+    //     // setIsAnsweringActive(!isAnsweringActive);
+    //     // event.preventDefault();
+    //   }
+    //   else {
+    //     alert("You cannot answer this question!");
+    //   }
+    // };
+    // Promise.all([arr[0], arr[1]]).then((resp) => {
+    //   // console.log(resp);
+    //   lastFunction();
+    // }).catch((err) => {
+    //   alert('something unexpected happened');
+    // })
+
+  }
+
+  const applyConditionToAnswer = (event) => {
+    if (Number(userYear) <= Number(questionUserYear)) {
+      setIsAnsweringActive(!isAnsweringActive);
+      // event.preventDefault();
+    }
+    else {
+      alert("You cannot answer this question!");
+    }
   }
 
   const handleAnswersButtonClickAndSubmitAnswer = async (event) => {
@@ -153,50 +203,75 @@ function Question(props) {
     // getUserById();             //not working here as this function async
     // getQuestionById();
 
-    const user = {
-      _id: userId,
-      email: userEmail,
-      password: userPassword,
-      fName: userfName,
-      lName: userlName,
-      branch: userBranch,
-      year: userYear
+
+    if (Number(userYear) <= Number(questionUserYear)) {
+      const user = {
+        _id: userId,
+        email: userEmail,
+        // password: userPassword,
+        fName: userfName,
+        lName: userlName,
+        branch: userBranch,
+        year: userYear
+      }
+
+      console.log("User object I created", user);
+
+      const question = {
+        _id: question_id,
+        content: questionContent,
+        category: questionCategory,
+        user: {
+          _id: questionUserId,
+          email: questionUserEmail,
+          // password: questionUserPassword,
+          fName: questionUserfName,
+          lName: questionUserlName,
+          branch: questionUserBranch,
+          year: questionUserYear
+        }
+      }
+
+      console.log("Question object I created", question);
+
+
+      let resultAnswer = await fetch("http://localhost:5000/createanswer", {
+        method: "post",
+        body: JSON.stringify({ content: acontent, user, question, approved }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+
+      resultAnswer = await resultAnswer.json();                //result is the object which finally contains the question stored in the database
+      // console.log(resultAnswer);
+
+      setIsAnsweringActive(!isAnsweringActive);
+
+
+
+      let resultNoOfDoubtsAnswered = await fetch(`http://localhost:5000/user-increment-noOfDoubtsAnswered/${userId}`, {                 //this result gets the value of res.send()
+        method: 'Put',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      resultNoOfDoubtsAnswered = await resultNoOfDoubtsAnswered.json();
+
+
+
+      event.preventDefault();
+
     }
 
-    console.log("User object I created", user);
-
-    const question = {
-      _id: question_id,
-      content: questionContent,
-      category: questionCategory,
-      user: {
-        _id: questionUserId,
-        email: questionUserEmail,
-        password: questionUserPassword,
-        fName: questionUserfName,
-        lName: questionUserlName,
-        branch: questionUserBranch,
-        year: questionUserYear
-      }
+    else {
+      alert("You cannot answer this question!");
+      setIsAnsweringActive(!isAnsweringActive);
     }
 
-    console.log("Question object I created", question);
 
 
-    let resultAnswer = await fetch("http://localhost:5000/createanswer", {
-      method: "post",
-      body: JSON.stringify({ content: acontent, user, question }),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-
-    resultAnswer = await resultAnswer.json();                //result is the object which finally contains the question stored in the database
-    // console.log(resultAnswer);
-
-    setIsAnsweringActive(!isAnsweringActive);
-
-    event.preventDefault();
   }
 
   // function handleChange(event) {
@@ -235,43 +310,34 @@ function Question(props) {
           <p>{props.content}</p>
         </div>
 
-        <a href="" onClick={handleAnswersButtonClick}>
+        <a href="" onClick={handleAnswersButtonClick} style={{ "textDecoration": "none" }}>
           <div className="answer-container">
             <img src="../ASSETS/Message.svg" alt="" />
             <p>Answers</p>
           </div>
         </a>
 
-        <a href="" onClick={handleViewAnswersButtonClick}>
+        <a href="" onClick={handleViewAnswersButtonClick} style={{ "textDecoration": "none" }}>
           <div className="answer-container">
             <img src="../ASSETS/Message.svg" alt="" />
             <p>View Answers</p>
           </div>
         </a>
 
-        <p>{props.questionId}</p>
+        {/* <p>{props.questionId}</p> */}
 
-        {isAnsweringActive ?
+        {/* {isAnsweringActive ?
           <div className="form-for-answer">
             <form action="">
-              {/* <label for="">First Name</label> <br />
-              <input type="text" onChange={handleChange} value={answer.fName} name="fName" /> <br />
-
-              <label for="">Last Name</label> <br />
-              <input type="text" onChange={handleChange} value={answer.lName} name="lName" /> <br />
-
-              <label for="">Branch</label><br />
-              <input type="text" onChange={handleChange} value={answer.branch} name="branch" /> <br />
-
-              <label for="">Year</label><br />
-              <input type="text" onChange={handleChange} value={answer.year} name="year" /> <br /> */}
+              
+              
 
               <label for="">Category</label><br />
-              {/* <input type="text" onChange={handleChange} value={answer.category} name="category" /> <br /> */}
+              
               <input type="text" onChange={(event) => { setACategory(event.target.value) }} value={acategory} name="category" /> <br />
 
               <label for="">Your Answer</label><br />
-              {/* <textarea name="content" onChange={handleChange} value={answer.content} cols="30" rows="2"></textarea> <br /> */}
+              
               <textarea name="content" onChange={(event) => { setAContent(event.target.value) }} value={acontent} cols="30" rows="2"></textarea> <br />
 
               <button onClick={handleAnswersButtonClickAndSubmitAnswer}>Submit</button>
@@ -279,7 +345,28 @@ function Question(props) {
           </div>
 
           : null
-        }
+        } */}
+
+
+
+        {/* {isAnsweringActive ?
+          <div className="update-answer-container">
+                <textarea
+                    className="update-answer-input-box"
+                    type="text"
+                    placeholder="Enter answer"
+                    rows="3"
+                    name="content"
+                    value={acontent}
+                    onChange={(event) => { setAContent(event.target.value) }}
+                />
+                <button className="update-answer-submit-button" onClick={handleAnswersButtonClickAndSubmitAnswer}>Submit</button>
+            </div>
+
+          : null
+        } */}
+
+
 
       </div>
 
@@ -292,6 +379,29 @@ function Question(props) {
         category = {displayAnswer.category}
         content = {displayAnswer.content}
       /> : null} */}
+
+
+
+
+      {isAnsweringActive ?
+        <div className="update-answer-container">
+          <textarea
+            className="update-answer-input-box"
+            type="text"
+            placeholder="Enter answer"
+            rows="3"
+            name="content"
+            value={acontent}
+            onChange={(event) => { setAContent(event.target.value) }}
+          />
+          <button className="update-answer-submit-button" onClick={handleAnswersButtonClickAndSubmitAnswer}>Submit</button>
+        </div>
+
+        : null
+      }
+
+
+
 
       {isViewAnswersButtonActive ? <div>{answers.map((answerItem, index) => {
         return (

@@ -1,3 +1,3 @@
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://localhost:27017/cb10");
+mongoose.connect("mongodb://localhost:27017/cb10ver6");

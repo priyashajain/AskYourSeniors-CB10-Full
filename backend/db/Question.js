@@ -4,11 +4,12 @@ const questionSchema = new mongoose.Schema({
     // _id: String,
     content: String,
     category: String,
+    approved: Boolean,
     // userId: String
     user: {
         _id: String,
         email: String,
-        password: String,
+        // password: String,
         fName: String,
         lName: String,
         branch: String,

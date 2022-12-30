@@ -3,11 +3,12 @@ const mongoose = require("mongoose");
 const answerSchema = new mongoose.Schema({
     // _id: String,
     content: String,
+    approved: Boolean,
     // userId: String,
     user: {
         _id: String,
         email: String,
-        password: String,
+        // password: String,
         fName: String,
         lName: String,
         branch: String,
@@ -21,7 +22,7 @@ const answerSchema = new mongoose.Schema({
         user: {
             _id: String,
             email: String,
-            password: String,
+            // password: String,
             fName: String,
             lName: String,
             branch: String,

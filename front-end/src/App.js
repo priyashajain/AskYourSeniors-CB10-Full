@@ -2,11 +2,17 @@
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import PrivateComponent from './components/PrivateComponent';
+import PrivateComponentForAdmin from './components/PrivateComponentForAdmin';
 import Home from "./components/Home";
+import HomeCorrect from './components/HomeCorrect';
 import Details from "./components/Details";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import AskYourDoubts from "./components/AskYourDoubts";
+import Leaderboard from "./components/Leaderboard";
+import Admin from './components/Admin';
+import PrivateComponentForOthers from './components/PrivateComponentForOthers';
 
 function App() {
   return (
@@ -28,19 +34,28 @@ function App() {
     // </div>
     <div>
       <BrowserRouter>
-
         {/* <Nav /> */}
         <Routes>
 
-          <Route path="/" element={<Home />} />
-          <Route path="/details/:id" element={<Details />} />
-          {/* <Route path="/details" element={<Details />} /> */}
+        
+        <Route element={<PrivateComponentForOthers />}>
+          <Route path="/" element={<HomeCorrect />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
-          <Route path="/ask-your-doubts" element={<AskYourDoubts />} />
+        </Route>
 
-          {/* <Route path="/signup" element={<SignUp />} /> */}
-          {/* <Route path="/login" element={<Login />} /> */}
+          <Route element={<PrivateComponent />}>
+            <Route path="/details/:id" element={<Details />} />
+            <Route path="/ask-your-doubts" element={<AskYourDoubts />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
+          </Route>
+
+          
+
+          <Route element={<PrivateComponentForAdmin />}>
+            <Route path="/admin" element={<Admin />} />
+          </Route>
+
         </Routes>
       </BrowserRouter>
       {/* <Footer /> */}

@@ -1,8 +1,10 @@
 /* eslint-disable */
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./Home.css";
 
 const Home = () => {
+    const navigate = useNavigate();
     return (
         <div>
 
@@ -11,14 +13,15 @@ const Home = () => {
                     <img src="../ASSETS/Frame 21.png" alt="" />
                     <ul className="navbar">
                         <li><a href="#">Home</a></li>
+                        {/* <li> <Link to="/signup" className="navbar-link-style">Products</Link></li> */}
                         <li><a href="doubts.html">Ask your doubts</a></li>
                         <li><a href="Leaderboard.html">LeaderBoard</a></li>
                         <li><a href="#">About</a></li>
                         <li><a href="quiz.html">Quiz</a></li>
 
                     </ul>
-                    <a href="signup.html"><button className="btn">Sign up</button></a>
-                    <a href="sign-in.html"><button className="btn">Sign in</button></a>
+                    <Link to="/signup"><button className="btn">Sign Up</button></Link>
+                    <Link to="/signin"><button className="btn">Sign In</button></Link>
 
                 </div>
             </header>

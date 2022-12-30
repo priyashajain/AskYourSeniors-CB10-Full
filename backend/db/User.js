@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+// const findOrCreate = require('mongoose-findorcreate');
 
 const userSchema = new mongoose.Schema({
     // _id: String,
@@ -8,7 +9,12 @@ const userSchema = new mongoose.Schema({
     lName: String,
     branch: String,
     year: String,
+    noOfDoubtsAsked: Number,
+    noOfDoubtsAnswered: Number,
+    isAdmin: Boolean
 });
+
+// userSchema.plugin(findOrCreate);
 
 module.exports = mongoose.model("users", userSchema);
 
